@@ -42,7 +42,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/emssilva22/talleress:latest
-            ghcr.io/emssilva22/talleress:latest:${{ github.sha }}
+            ghcr.io/emssilva22/talleress:${{ github.sha }}
 
       - name: ✅ Verify image build
         run: docker images ghcr.io/emssilva22/talleress:latest
