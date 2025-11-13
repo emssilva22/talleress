@@ -2,18 +2,18 @@ version: "3.8"
 
 services:
   erick:
-    image: erick:latest
+    image: ghcr.io/emssilva22/talleress:latest
     build: .
     deploy:
       replicas: 1
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.erick.entrypoints=http"
-        - "traefik.http.routers.erick.rule=Host(`erick.pyerick.com`)"
+        - "traefik.http.routers.erick.rule=Host(`erick.byronrm.com`)"
         - "traefik.http.middlewares.erick-https-redirect.redirectscheme.scheme=https"
         - "traefik.http.routers.erick.middlewares=erick-https-redirect"
         - "traefik.http.routers.erick-secure.entrypoints=https"
-        - "traefik.http.routers.erick-secure.rule=Host(`erick.pyerick.com`)"
+        - "traefik.http.routers.erick-secure.rule=Host(`erick.byronrm.com`)"
         - "traefik.http.routers.erick-secure.tls=true"
         - "traefik.http.routers.erick-secure.tls.certresolver=http"
         - "traefik.http.routers.erick-secure.service=erick"
