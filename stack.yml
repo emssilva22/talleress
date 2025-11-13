@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  erick:
+    image: erick:latest
+    build: .
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.erick.entrypoints=http"
+        - "traefik.http.routers.erick.rule=Host(`erick.pyerick.com`)"
+        - "traefik.http.middlewares.erick-https-redirect.redirectscheme.scheme=https"
+        - "traefik.http.routers.erick.middlewares=erick-https-redirect"
+        - "traefik.http.routers.erick-secure.entrypoints=https"
+        - "traefik.http.routers.erick-secure.rule=Host(`erick.pyerick.com`)"
+        - "traefik.http.routers.erick-secure.tls=true"
+        - "traefik.http.routers.erick-secure.tls.certresolver=http"
+        - "traefik.http.routers.erick-secure.service=erick"
+        - "traefik.http.services.erick.loadbalancer.server.port=80"
+        - "traefik.docker.network=traefik-public"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
